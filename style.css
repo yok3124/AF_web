@@ -1,0 +1,202 @@
+html {
+    background-color: #000;
+    transition: 0.5s;   
+    scroll-behavior: smooth; 
+}
+
+h1 {
+    color: #000000;
+}
+
+p {
+    color: #000;
+}
+
+/* ---------------------------------- */
+
+/* style.css */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.background-container {
+    position:relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* ให้ div นี้อยู่ด้านหลังเนื้อหา */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1s ease-in-out;
+}
+.IMG-welcome-ch {
+    display: block;
+    overflow: hidden;
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+    opacity: 40%;
+}
+
+body {
+    position: relative; /* สำคัญสำหรับการแสดงผล div ที่มี z-index */
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.fixed-navbar {
+   position: fixed;
+   background-image: linear-gradient(to bottom, #000000, #ffffff00);
+   height: 10%;
+   opacity: 80%;
+   top: 0;
+   left: 0;
+   width: 100%;
+   background-color: transparent !important; /* ทำให้โปร่งใสและสำคัญกว่า CSS อื่นๆ */
+}
+
+.navbar-content {
+   max-width: 1200px;
+   margin: 0 auto;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 0 20px;
+   background-color: transparent !important; /* ทำให้โปร่งใสและสำคัญกว่า CSS อื่นๆ */
+}
+
+.logo {
+    width: 10%;
+    display: flexbox;
+    font-weight: bold;
+    /* โลโก้จะชิดซ้ายเสมอ เพราะ justify-content: space-between; จะดันองค์ประกอบอื่นไปทางขวา */
+}
+
+.welcome-about {
+    width: 200px;
+    height: 200px;
+    background-color: #333;
+    border-radius: 5px;
+}
+.welcome-about h1 {
+    color: #ffffff;
+}
+
+.welcome-p { 
+    width: 200px;
+    height:  150px;
+}
+.welcome-p p {
+    width: 60%;
+}
+
+/* ปุ่ม Hamburger Icon สำหรับมือถือ */
+.menu-toggle {
+    display: none; /* ซ่อนปุ่มโดย default ในหน้าจอขนาดใหญ่ */
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: -10px;
+}
+
+.nav-wrapper ul {
+    font-family: "Kanit", sans-serif;
+    list-style: none;
+    
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-wrapper ul li {
+    margin-left: 20px;
+}
+
+.nav-wrapper ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-wrapper ul li a:hover {
+    color: #222222;
+    background-color: #4ec67c;
+    border-radius: 4px;
+}
+
+
+
+
+/* --- Media Queries สำหรับ Mobile Responsive --- */
+
+@media (max-width: 768px) { /* สำหรับหน้าจอขนาด 768px หรือเล็กกว่า (ทั่วไปสำหรับแท็บเล็ตและมือถือ) */
+    .navbar-content {
+        justify-content: space-between; /* โลโก้ชิดซ้าย, ปุ่มเมนูชิดขวา */
+        flex-wrap: wrap; /* ให้เนื้อหาขึ้นบรรทัดใหม่ได้ */
+    }
+
+    .menu-toggle {
+        display: block; /* แสดงปุ่ม Hamburger */
+    }
+
+    .nav-wrapper {
+        flex-basis: 100%; /* ให้ nav-wrapper กินพื้นที่ 100% ของบรรทัดใหม่ */
+        height: 0; /* ซ่อนเมนูเริ่มต้น */
+        overflow: hidden; /* ซ่อนเนื้อหาที่เกินมา */
+        max-height: 0px;
+        transition: all 0.3s ease-out; /* เพิ่ม animation ในการเปิด-ปิด */
+    }
+
+    .nav-wrapper.active {
+        height: auto; /* เมื่อ class 'active' ถูกเพิ่ม เมนูจะปรากฏขึ้น */
+        width: 150px;
+        margin: 20px 0px 0px 0px;
+        max-height: 300px; /* กำหนด max-height เพื่อให้ transition ทำงานได้ (ปรับตามจำนวนเมนู) */
+    }
+
+    .nav-wrapper ul {
+        flex-direction: column; /* จัดเมนูเป็นแนวตั้ง */
+        width: 40%;
+        margin-left: 60%;
+        text-align: right; /* จัดกึ่งกลางข้อความเมนู */
+        background-color: #444; /* สีพื้นหลังของเมนูเมื่อเปิด */
+        padding: 10px 0;
+    }
+
+    .nav-wrapper ul li {
+        margin: 10px 0; /* ระยะห่างระหว่างเมนูแต่ละรายการในแนวตั้ง */
+    }
+}
+
+
+
+#scrollToTopBtn {
+    display: block; /* ซ่อนปุ่มเริ่มต้น */
+    position: fixed; /* ให้อยู่ในตำแหน่งคงที่เมื่อเลื่อนหน้าจอ */
+    bottom: 20px; /* ห่างจากขอบล่าง 20px */
+    right: 30px; /* ห่างจากขอบขวา 30px */
+    z-index: 99; /* ให้ปุ่มอยู่เหนือเนื้อหาอื่น ๆ */
+    border: none; /* ไม่มีขอบ */
+    outline: none; /* ไม่มีเส้นขอบเมื่อโฟกัส */
+    background-color: #222222; /* สีพื้นหลังปุ่ม */
+    color: white; /* สีตัวอักษร/สัญลักษณ์ */
+    cursor: pointer; /* เปลี่ยนรูปเมาส์เมื่อชี้ */
+    padding: 15px; /* ช่องว่างภายในปุ่ม */
+    border-radius: 10px; /* ทำให้ปุ่มมีมุมโค้งมน */
+    font-size: 18px; /* ขนาดตัวอักษร/สัญลักษณ์ */
+    transition: background-color 0.3s ease; /* เพิ่ม transition เมื่อ hover */
+  }
+
+  #scrollToTopBtn:hover {
+    background-color: #4ec67c; /* สีพื้นหลังเมื่อเมาส์ชี้ */
+  }
