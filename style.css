@@ -1,7 +1,7 @@
 html {
     background-color: #000;
-    transition: 0.5s;   
-    scroll-behavior: smooth; 
+    transition: 0.5s;
+    scroll-behavior: smooth;
 }
 
 h1 {
@@ -19,45 +19,113 @@ p {
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    position: relative;
+    min-height: 100vh;
+    padding: 0;
 }
 
 .background-container {
-    position:relative;
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* REMOVE any 'opacity' PROPERTY here if it exists */
+    /* Add a subtle dark overlay using a pseudo-element if desired, without affecting the image opacity itself */
+    /* If you want a *darker* image, you adjust opacity on .IMG-welcome-ch. */
+    /* If you want a dark *tint* over the image, you can use ::before or ::after */
+}
+
+.IMG-welcome-ch {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* ให้ div นี้อยู่ด้านหลังเนื้อหา */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: background-image 1s ease-in-out;
-}
-.IMG-welcome-ch {
-    display: block;
-    overflow: hidden;
-    height: 400px;
-    width: 100%;
     object-fit: cover;
-    opacity: 40%;
+    opacity: 0.2; /* This is the value to make the background image more transparent/faded. Adjust as needed. 0.2 is 20% opaque, 80% transparent. */
+    z-index: -1; /* Ensures the image stays behind all other content */
 }
 
-body {
-    position: relative; /* สำคัญสำหรับการแสดงผล div ที่มี z-index */
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
+.welcome-overlay {
+    position: relative;
+    z-index: 1; /* Ensures content is above the image */
+    color: white; /* Text color is fully opaque */
+    width: 90%;
+    max-width: 1200px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    /* REMOVE 'margin: -50px;' as it's causing layout issues and unnecessary */
+    /* Ensure no 'opacity' property is here */
 }
+
+.welcome-about {
+    text-align: center;
+    padding: 20px; /* Re-added padding here as it was removed in your latest provided code */
+    flex: 1;
+    min-width: 280px;
+}
+
+.welcome-about h1 {
+    color: #ffffff;
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.welcome-about p {
+    color: #ffffff;
+    font-size: 1.2em;
+    width: auto;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.welcome-about a {
+    color: #4ec67c;
+    text-decoration: none;
+    border: 1px solid #4ec67c;
+    padding: 8px 15px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.welcome-about a:hover {
+    background-color: #4ec67c;
+    color: #222222;
+}
+
+.welcome-description {
+    flex: 1;
+    min-width: 280px;
+    padding: 20px; /* Re-added padding here as it was removed in your latest provided code */
+    text-align: left;
+}
+
+.welcome-description p {
+    color: #ffffff;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
 
 .fixed-navbar {
    position: fixed;
    background-image: linear-gradient(to bottom, #000000, #ffffff00);
-   height: 10%;
-   opacity: 80%;
+   height: 10%; /* This height is for desktop; will be adjusted in media query */
+   opacity: 80%; /* This makes the navbar itself slightly transparent. Keep if desired. */
    top: 0;
    left: 0;
    width: 100%;
-   background-color: transparent !important; /* ทำให้โปร่งใสและสำคัญกว่า CSS อื่นๆ */
+   background-color: transparent !important;
+   z-index: 100;
 }
 
 .navbar-content {
@@ -67,37 +135,17 @@ body {
    justify-content: space-between;
    align-items: center;
    padding: 0 20px;
-   background-color: transparent !important; /* ทำให้โปร่งใสและสำคัญกว่า CSS อื่นๆ */
+   background-color: transparent !important;
 }
 
 .logo {
-    width: 10%;
+    width: 10%; /* Default size for desktop */
     display: flexbox;
     font-weight: bold;
-    /* โลโก้จะชิดซ้ายเสมอ เพราะ justify-content: space-between; จะดันองค์ประกอบอื่นไปทางขวา */
 }
 
-.welcome-about {
-    width: 200px;
-    height: 200px;
-    background-color: #333;
-    border-radius: 5px;
-}
-.welcome-about h1 {
-    color: #ffffff;
-}
-
-.welcome-p { 
-    width: 200px;
-    height:  150px;
-}
-.welcome-p p {
-    width: 60%;
-}
-
-/* ปุ่ม Hamburger Icon สำหรับมือถือ */
 .menu-toggle {
-    display: none; /* ซ่อนปุ่มโดย default ในหน้าจอขนาดใหญ่ */
+    display: none;
     background: none;
     border: none;
     color: white;
@@ -110,7 +158,6 @@ body {
 .nav-wrapper ul {
     font-family: "Kanit", sans-serif;
     list-style: none;
-    
     margin: 0;
     padding: 0;
     display: flex;
@@ -134,69 +181,127 @@ body {
     border-radius: 4px;
 }
 
-
-
-
 /* --- Media Queries สำหรับ Mobile Responsive --- */
 
-@media (max-width: 768px) { /* สำหรับหน้าจอขนาด 768px หรือเล็กกว่า (ทั่วไปสำหรับแท็บเล็ตและมือถือ) */
+@media (max-width: 768px) {
+    /* Navbar adjustments */
     .navbar-content {
-        justify-content: space-between; /* โลโก้ชิดซ้าย, ปุ่มเมนูชิดขวา */
-        flex-wrap: wrap; /* ให้เนื้อหาขึ้นบรรทัดใหม่ได้ */
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 15px 20px; /* Increased vertical padding for dropdown */
     }
 
     .menu-toggle {
-        display: block; /* แสดงปุ่ม Hamburger */
+        display: block;
     }
 
     .nav-wrapper {
-        flex-basis: 100%; /* ให้ nav-wrapper กินพื้นที่ 100% ของบรรทัดใหม่ */
-        height: 0; /* ซ่อนเมนูเริ่มต้น */
-        overflow: hidden; /* ซ่อนเนื้อหาที่เกินมา */
+        flex-basis: 100%;
+        height: 0;
+        overflow: hidden;
         max-height: 0px;
-        transition: all 0.3s ease-out; /* เพิ่ม animation ในการเปิด-ปิด */
+        transition: all 0.3s ease-out;
     }
 
     .nav-wrapper.active {
-        height: auto; /* เมื่อ class 'active' ถูกเพิ่ม เมนูจะปรากฏขึ้น */
+        height: auto;
         width: 150px;
         margin: 20px 0px 0px 0px;
-        max-height: 300px; /* กำหนด max-height เพื่อให้ transition ทำงานได้ (ปรับตามจำนวนเมนู) */
+        max-height: 300px;
     }
 
     .nav-wrapper ul {
-        flex-direction: column; /* จัดเมนูเป็นแนวตั้ง */
+        flex-direction: column;
         width: 40%;
         margin-left: 60%;
-        text-align: right; /* จัดกึ่งกลางข้อความเมนู */
-        background-color: #444; /* สีพื้นหลังของเมนูเมื่อเปิด */
+        text-align: right;
+        background-color: #444;
         padding: 10px 0;
     }
 
     .nav-wrapper ul li {
-        margin: 10px 0; /* ระยะห่างระหว่างเมนูแต่ละรายการในแนวตั้ง */
+        margin: 10px 0;
+    }
+
+    /* Logo size adjustment for mobile */
+    /* .logo {
+        width: 120px; /* Set a larger fixed width for the logo on mobile */
+        object-fit: contain;
+    } */
+
+    /* Responsive adjustments for welcome section on smaller screens */
+    .welcome-overlay {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        padding: 10px;
+        align-items: center;
+    }
+
+    .welcome-about,
+    .welcome-description {
+        width: 100%; /* Take full width when stacked */
+        min-width: unset; /* Remove min-width constraint when stacked */
+        text-align: center; /* Center text within each stacked div */
+    }
+
+    /* Specific centering for the description paragraph on mobile */
+    .welcome-description p {
+        text-align: center; /* Centers individual lines of text within the paragraph */
+        max-width: 90%; /* Limits the width of the paragraph itself */
+        margin: 0 auto; /* Crucial: Centers the entire paragraph block */
+        padding: 0 5px; /* Small horizontal padding to prevent text sticking to edges */
+    }
+
+    .welcome-about h1 {
+        font-size: 2.2em;
+    }
+
+    .welcome-about p {
+        font-size: 1em;
+    }
+
+    .welcome-description p {
+        font-size: 0.9em;
+    }
+}
+
+/* Additional Media Query for very small screens if needed */
+@media (max-width: 480px) {
+    .background-container {
+        height: 500px;
+    }
+    .welcome-about h1 {
+        font-size: 1.8em;
+    }
+    .welcome-about p {
+        font-size: 0.9em;
+    }
+    .welcome-description p {
+        font-size: 0.8em;
     }
 }
 
 
-
 #scrollToTopBtn {
-    display: block; /* ซ่อนปุ่มเริ่มต้น */
-    position: fixed; /* ให้อยู่ในตำแหน่งคงที่เมื่อเลื่อนหน้าจอ */
-    bottom: 20px; /* ห่างจากขอบล่าง 20px */
-    right: 30px; /* ห่างจากขอบขวา 30px */
-    z-index: 99; /* ให้ปุ่มอยู่เหนือเนื้อหาอื่น ๆ */
-    border: none; /* ไม่มีขอบ */
-    outline: none; /* ไม่มีเส้นขอบเมื่อโฟกัส */
-    background-color: #222222; /* สีพื้นหลังปุ่ม */
-    color: white; /* สีตัวอักษร/สัญลักษณ์ */
-    cursor: pointer; /* เปลี่ยนรูปเมาส์เมื่อชี้ */
-    padding: 15px; /* ช่องว่างภายในปุ่ม */
-    border-radius: 10px; /* ทำให้ปุ่มมีมุมโค้งมน */
-    font-size: 18px; /* ขนาดตัวอักษร/สัญลักษณ์ */
-    transition: background-color 0.3s ease; /* เพิ่ม transition เมื่อ hover */
-  }
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: #222222;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+ }
 
-  #scrollToTopBtn:hover {
-    background-color: #4ec67c; /* สีพื้นหลังเมื่อเมาส์ชี้ */
-  }
+ #scrollToTopBtn:hover {
+    background-color: #4ec67c;
+ }
+ /* REMOVE THE DUPLICATE MEDIA QUERY BLOCK BELOW THIS LINE */
+ /* @media (max-width: 768px) { ... } */
